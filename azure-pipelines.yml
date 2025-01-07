@@ -13,7 +13,7 @@ extends:
   template: atemplate.yml
   parameters:
     templateParam: this is a superParam
-stages:
+#stages:
   - stage: Stage0
     displayName: Stage 0
     jobs:
