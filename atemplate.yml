@@ -17,8 +17,6 @@ stages:
     displayName: TemplateStage 1
     jobs:
       - job: TemplateJob1
-        variables:
-          myTemplateVar: $[ stageDependencies.Stage0.Job0.outputs['Script00.stageValue'] ]
         displayName: Template Job 1
         steps:
           - checkout: none
