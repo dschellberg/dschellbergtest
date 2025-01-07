@@ -52,8 +52,7 @@ stages:
         displayName: Job 1.2
         variables:
           myJobVar1: $[ dependencies.Job1.outputs['Script11.anotherValue'] ]
-          myJobVar2: abcde
-#          $[ stageDependencies.Stage0.Job0.outputs['Script00.stageValue'] ]
+          myJobVar2: $[ dependencies.Stage0.Job0.outputs['Script00.stageValue'] ]
         steps:
           - checkout: none
           - task: Bash@3
