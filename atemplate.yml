@@ -1,7 +1,7 @@
-extends:
-  template: asuperTemplate.yml
-
 name: dschellbergtemplate
+
+extends:
+  template: pipelines/v3.0.4/java-app-build.ado.yaml@pipeline-templates
 
 parameters:
   - name: templateParam
