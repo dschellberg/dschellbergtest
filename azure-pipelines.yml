@@ -29,14 +29,14 @@ stages:
       - job: Job01
         displayName: Job 1
         variables:
-          myStageVar: $[ dependencies.Job0.outputs['Script00.stageValue'] ]
+          myStageVar3: $[ dependencies.Job0.outputs['Script00.stageValue'] ]
         steps:
           - checkout: none
           - task: Bash@3
             inputs:
               targetType: "inline"
               script: |
-                echo "this is a value that comes from a previous stage ---$(myStageVar)---"
+                echo "this is a value that comes from a previous stage ---$(myStageVar3)---"
             displayName: Bash script displays a stage variable
             name: Script00
   - template: atemplate.yml
