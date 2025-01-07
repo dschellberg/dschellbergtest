@@ -17,7 +17,6 @@ stages:
     displayName: TemplateStage 1
     jobs:
       - job: TemplateJob1
-        dependsOn: Job0
         displayName: Template Job 1
         steps:
           - checkout: none
