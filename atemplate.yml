@@ -17,6 +17,8 @@ stages:
     displayName: TemplateStage 1
     jobs:
       - job: TemplateJob1
+        variables:
+          aStageVar: $[ stageDependencies.Stage1.Job1.outputs['Script11.anotherValue'] ]
         displayName: Template Job 1
         steps:
           - checkout: none
@@ -25,7 +27,7 @@ stages:
               targetType: "inline"
               script: |
                 myValue=`echo ${{ parameters.templateParam }}`
-                echo "my value 1(set from stage dependencies) does not appear because templates are expanded first before stages are run ---$myValue---"
+                echo "my value 1(set from stage dependencies) does not appear because templates are expanded first before stages are run ---$aStageVar---"
                 myValue=`echo ${{ parameters.templateParam2 }}`
                 echo "my value 2(is a parameter that is hard coded) is ---$myValue---"
             displayName: Template Bash script to output parameters
