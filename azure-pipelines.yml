@@ -14,7 +14,7 @@ stages:
     displayName: Stage 0
     jobs:
       - job: Job0
-        displayName: Job 0.1
+        displayName: Job 0
         steps:
           - checkout: none
           - task: Bash@3
@@ -25,6 +25,19 @@ stages:
                 myValue="the fox is over there"
                 echo "##vso[task.setvariable variable=stageValue;isoutput=true]$myValue"
             displayName: Bash script that echos a variable and outputs a variable
+            name: Script00
+      - job: Job01
+        displayName: Job 1
+        variables:
+          myStageVar: $[ stageDependencies.Stage0.Job0.outputs['Script00.stageValue'] ]
+        steps:
+          - checkout: none
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                echo "this is a value that comes from a previous stage ---$(myStageVar)---"
+            displayName: Bash script displays a stage variable
             name: Script00
   - template: atemplate.yml
     parameters:
@@ -52,7 +65,7 @@ stages:
         displayName: Job 1.2
         variables:
           myJobVar1: $[ dependencies.Job1.outputs['Script11.anotherValue'] ]
-          myJobVar2: $[ dependencies.Job0.outputs['Script00.stageValue'] ]
+          myJobVar2: $[ stageDependencies.Stage0.Job0.outputs['Script00.stageValue'] ]
         steps:
           - checkout: none
           - task: Bash@3
