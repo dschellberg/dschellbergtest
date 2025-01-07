@@ -1,4 +1,4 @@
-name: dschellbergtemplate
+
 parameters:
   - name: templateParam
     displayName: Template Parameter
