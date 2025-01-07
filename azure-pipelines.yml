@@ -27,6 +27,7 @@ stages:
             displayName: Bash script that echos a variable and outputs a variable
             name: Script00
       - job: Job01
+        dependsOn: Job0
         displayName: Job 1
         variables:
           myStageVar3: $[ dependencies.Job0.outputs['Script00.stageValue'] ]
