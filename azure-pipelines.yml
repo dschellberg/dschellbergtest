@@ -12,7 +12,8 @@ parameters:
 extends:
   template: atemplate.yml
   parameters:
-    templateParam: this is a superParam
+    templateParam: this is a param 1
+    templateParam2: this is a param 2
 #stages:
 #  - stage: Stage0
 #    displayName: Stage 0
