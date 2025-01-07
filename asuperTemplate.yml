@@ -24,6 +24,6 @@ stages:
             inputs:
               targetType: "inline"
               script: |
-                echo "this is a value that comes from a previous stage but is empty because stage dependency is not declared $(myStageVar)"
+                echo "this is a value that comes from a previous stage but is empty because stage dependency is not declared ---$(myStageVar)---"
             displayName: Super Template Bash script to output stage variables of a calling template
             name: SuperTemplateScript12
