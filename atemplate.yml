@@ -1,3 +1,6 @@
+extends:
+  template: asuperTemplate.yml
+
 name: dschellbergtemplate
 
 parameters:
@@ -9,8 +12,7 @@ parameters:
     displayName: Template Parameter
     type: string
 
-extends:
-  template: asuperTemplate.yml
+
 #stages:
 #    parameters:
 #      superParam: this is a superParam
