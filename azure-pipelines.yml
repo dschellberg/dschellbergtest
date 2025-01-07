@@ -44,7 +44,7 @@ stages:
               script: |
                 myValue=`echo ${{ parameters.initialValue }}`
                 echo "parameter value that is passed in ---$myValue---"
-                echo "##vso[task.setvariable variable=anotherValue;isoutput=true]$myValuexyz"
+                echo "##vso[task.setvariable variable=anotherValue;isoutput=true]$myValue"
             displayName: Bash script to set a variable and output it
             name: Script11
       - job: Job12
