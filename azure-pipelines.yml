@@ -21,9 +21,9 @@ stages:
             inputs:
               targetType: "inline"
               script: |
-                echo "hello world"
                 myValue="the fox is over there"
                 echo "##vso[task.setvariable variable=stageValue;isoutput=true]$myValue"
+                echo "hello world $myValue"
             displayName: Bash script that echos a variable and outputs a variable
             name: Script00
       - job: Job01
