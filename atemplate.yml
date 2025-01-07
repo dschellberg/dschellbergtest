@@ -7,8 +7,9 @@ parameters:
     displayName: Template Parameter
     type: string
 
+extends:
+  template: asuperTemplate.yml
 stages:
-  - template: asuperTemplate.yml
     parameters:
       superParam: this is a superParam
   - stage: TemplateStage1
