@@ -9,76 +9,72 @@ parameters:
     default: A value
     displayName: initial vlaue
 
-extends:
-  template: atemplate.yml
-  parameters:
-    templateParam: this is a param 1
-    templateParam2: this is a param 2
-#stages:
-#  - stage: Stage0
-#    displayName: Stage 0
-#    jobs:
-#      - job: Job0
-#        displayName: Job 0.1
-#        steps:
-#          - checkout: none
-#          - task: Bash@3
-#            inputs:
-#              targetType: "inline"
-#              script: |
-#                echo "hello world"
-#                myValue="the fox is over there"
-#                echo "##vso[task.setvariable variable=parameterValue;isoutput=true]$myValue"
-#            displayName: Bash script that echos a variable and outputs a variable
-#            name: Script00
-#    parameters:
-##     this wont work because the template is expanded before the stages are run
-#      templateParam: $[ dependencies.Stage0.Job0.outputs['Script00.parameterValue'] ]
-#      templateParam2: just a test value
-#  - stage: Stage1
-#    displayName: Stage 1
-#    jobs:
-#      - job: Job1
-#        displayName: Job 1.1
-#        steps:
-#          - checkout: none
-#          - task: Bash@3
-#            inputs:
-#              targetType: "inline"
-#              script: |
-#                myValue=`echo ${{ parameters.initialValue }}`
-#                echo "parameter value that is passed in $myValue"
-#                echo "##vso[task.setvariable variable=anotherValue;isoutput=true]$myValue"
-#            displayName: Bash script to set a variable and output it
-#            name: Script11
-#      - job: Job12
-#        dependsOn: Job1
-#        displayName: Job 1.2
-#        variables:
-#          myJobVar1: $[ dependencies.Job1.outputs['Script11.anotherValue'] ]
-#          myJobVar2: $[ stageDependencies.Stage0.Job0.outputs['Script00.anotherValue'] ]
-#        steps:
-#          - checkout: none
-#          - task: Bash@3
-#            inputs:
-#              targetType: "inline"
-#              script: |
-#                echo "This is a value that comes from a previous job $(myJobVar1)"
-#                echo "This is a value that comes from a previous stage $(myJobVar1)"
-#              displayName: Bash script to retrieve a previous stage and jobs output
-#  - stage: Stage2
-#    displayName: Stage 2
-#    jobs:
-#      - job: Job2
-#        variables:
-#          myStageVar: $[ stageDependencies.Stage1.Job1.outputs['Script11.anotherValue'] ]
-#        displayName: Job 2.2
-#        steps:
-#          - checkout: none
-#          - task: Bash@3
-#            inputs:
-#              targetType: "inline"
-#              script: |
-#                echo "this is a value that comes from a previous stage $(myStageVar)"
-#              displayName: Bash script to output a previous stage variable
+stages:
+  - stage: Stage0
+    displayName: Stage 0
+    jobs:
+      - job: Job0
+        displayName: Job 0.1
+        steps:
+          - checkout: none
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                echo "hello world"
+                myValue="the fox is over there"
+                echo "##vso[task.setvariable variable=parameterValue;isoutput=true]$myValue"
+            displayName: Bash script that echos a variable and outputs a variable
+            name: Script00
+  - template: atemplate.yml
+    parameters:
+#     this wont work because the template is expanded before the stages are run
+      templateParam: $[ dependencies.Stage0.Job0.outputs['Script00.parameterValue'] ]
+      templateParam2: just a test value
+  - stage: Stage1
+    displayName: Stage 1
+    jobs:
+      - job: Job1
+        displayName: Job 1.1
+        steps:
+          - checkout: none
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                myValue=`echo ${{ parameters.initialValue }}`
+                echo "parameter value that is passed in $myValue"
+                echo "##vso[task.setvariable variable=anotherValue;isoutput=true]$myValue"
+            displayName: Bash script to set a variable and output it
+            name: Script11
+      - job: Job12
+        dependsOn: Job1
+        displayName: Job 1.2
+        variables:
+          myJobVar1: $[ dependencies.Job1.outputs['Script11.anotherValue'] ]
+          myJobVar2: $[ stageDependencies.Stage0.Job0.outputs['Script00.anotherValue'] ]
+        steps:
+          - checkout: none
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                echo "This is a value that comes from a previous job $(myJobVar1)"
+                echo "This is a value that comes from a previous stage $(myJobVar1)"
+              displayName: Bash script to retrieve a previous stage and jobs output
+  - stage: Stage2
+    displayName: Stage 2
+    jobs:
+      - job: Job2
+        variables:
+          myStageVar: $[ stageDependencies.Stage1.Job1.outputs['Script11.anotherValue'] ]
+        displayName: Job 2.2
+        steps:
+          - checkout: none
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                echo "this is a value that comes from a previous stage $(myStageVar)"
+              displayName: Bash script to output a previous stage variable
 
