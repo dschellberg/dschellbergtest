@@ -1,0 +1,29 @@
+parameters:
+  - name: superParam
+    displayName: Super Template Parameter
+    type: string
+stages:
+  - stage: SuperTemplateStage1
+    displayName: SuperTemplateStage 1
+    jobs:
+      - job: SuperTemplateJob1
+        variables:
+          myStageVar: $[ stageDependencies.Stage1.Job1.outputs['Script11.anotherValue'] ]
+        displayName: Super Template Job 1
+        steps:
+          - checkout: none
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                myValue=`echo ${{ parameters.superParam }}`
+                echo "Value is a parameter passed in to the template from child template $myValue"
+            displayName: Super Template Bash script to output parameters
+            name: SuperTemplateScript1
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                echo "this is a value that comes from a previous stage but is empty because stage dependency is not declared $(myStageVar)"
+            displayName: Super Template Bash script to output stage variables of a calling template
+            name: SuperTemplateScript12
