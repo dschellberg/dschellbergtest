@@ -1,8 +1,4 @@
-  name: dschellbergtemplate
-
-extends:
-  template: pipelines/v3.0.4/java-app-build.ado.yaml@pipeline-templates
-
+name:
 parameters:
   - name: templateParam
     displayName: Template Parameter
@@ -12,24 +8,24 @@ parameters:
     displayName: Template Parameter
     type: string
 
-
-#stages:
-#    parameters:
-#      superParam: this is a superParam
-#  - stage: TemplateStage1
-#    displayName: TemplateStage 1
-#    jobs:
-#      - job: TemplateJob1
-#        displayName: Template Job 1
-#        steps:
-#          - checkout: none
-#          - task: Bash@3
-#            inputs:
-#              targetType: "inline"
-#              script: |
-#                myValue=`echo ${{ parameters.templateParam }}`
-#                echo "my value 1(set from stage dependencies) does not appear because templates are expanded first before stages are run $myValue"
-#                myValue=`echo ${{ parameters.templateParam2 }}`
-#                echo "my value 2(is a parameter that is hard coded) is $myValue"
-#            displayName: Template Bash script to output parameters
-#            name: TemplateScript11
+stages:
+  - template: asuperTemplate.yml
+    parameters:
+      superParam: this is a superParam
+  - stage: TemplateStage1
+    displayName: TemplateStage 1
+    jobs:
+      - job: TemplateJob1
+        displayName: Template Job 1
+        steps:
+          - checkout: none
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                myValue=`echo ${{ parameters.templateParam }}`
+                echo "my value 1(set from stage dependencies) does not appear because templates are expanded first before stages are run $myValue"
+                myValue=`echo ${{ parameters.templateParam2 }}`
+                echo "my value 2(is a parameter that is hard coded) is $myValue"
+            displayName: Template Bash script to output parameters
+            name: TemplateScript11
