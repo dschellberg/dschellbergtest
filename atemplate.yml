@@ -13,7 +13,7 @@ stages:
     parameters:
       superParam: this is a superParam
   - stage: TemplateStage1
-    dependsOn: Stage0
+    dependsOn: Stage5
     displayName: TemplateStage 1
     jobs:
       - job: TemplateJob1
