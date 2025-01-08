@@ -33,6 +33,6 @@ stages:
                 echo "Template Param 1 ---$myValue---"
                 myValue=`echo ${{ parameters.templateParam2 }}`
                 echo "Template Param 2 ---$myValue---"
-                echo "A Stage Value from main script ---$aStageVar---"
+                echo "A Stage Value from main script ---$(aStageVar)---"
             displayName: Template Bash script to output parameters
             name: TemplateScript11
