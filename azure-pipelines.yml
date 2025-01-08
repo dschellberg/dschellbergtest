@@ -66,6 +66,7 @@ stages:
               displayName: Bash script to retrieve a previous stage and jobs output
   - stage: Stage2
     displayName: Stage 2
+    dependsOn: Stage1
     jobs:
       - job: Job2
         variables:
