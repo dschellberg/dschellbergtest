@@ -69,7 +69,8 @@ stages:
     jobs:
       - job: Job2
         variables:
-          myStageVar: $[ stageDependencies.Stage1.Job1.outputs['Script11.anotherValue'] ]
+          myStageVar1: $[ stageDependencies.Stage0.Job0.outputs['Script00.stageValue'] ]
+          myStageVar2: $[ stageDependencies.Stage1.Job1.outputs['Script11.anotherValue'] ]
         displayName: Job 2.2
         steps:
           - checkout: none
@@ -77,6 +78,7 @@ stages:
             inputs:
               targetType: "inline"
               script: |
-                echo "this is a value that comes from a previous stage ---$(myStageVar)---"
+                echo "this is a value that comes from stage 0 ---$(myStageVar1)---"
+                echo "this is a value that comes from stage 1 ---$(myStageVar2)---"
               displayName: Bash script to output a previous stage variable
 
