@@ -26,9 +26,11 @@ stages:
             inputs:
               targetType: "inline"
               script: |
-                myValue=`echo ${{ parameters.templateParam }}`
                 echo "my value 1(set from stage dependencies) does not appear because templates are expanded first before stages are run ---$aStageVar---"
+                myValue=`echo ${{ parameters.templateParam1 }}`
+                echo "Template Param 1 ---$myValue---"
                 myValue=`echo ${{ parameters.templateParam2 }}`
-                echo "my value 2(is a parameter that is hard coded) is ---$myValue---"
+                echo "Template Param 2 ---$myValue---"
+                echo "Stage Value from main script ---$aStageVar---"
             displayName: Template Bash script to output parameters
             name: TemplateScript11
